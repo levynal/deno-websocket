@@ -179,7 +179,7 @@ export class WebSocketAcceptedClient extends EventEmitter
 export class StandardWebSocketClient extends EventEmitter
   implements WebSocketClient {
   webSocket?: WebSocket;
-  id?: string;
+  id: string;
   constructor(private endpoint?: string) {
     super();
     if (this.endpoint !== undefined) {
