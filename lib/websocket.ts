@@ -52,7 +52,7 @@ export class WebSocketServer extends EventEmitter {
           }
         }
         console.log(req.headers, req.headers.get("sec-websocket-key"))
-        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, 'sdfcqsdcv');
+        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, req.headers.get("sec-websocket-key"));
         this.clients.add(ws);
         this.emit("connection", ws, req);
       } catch (err) {
