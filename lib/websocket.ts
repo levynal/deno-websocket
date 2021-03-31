@@ -57,8 +57,7 @@ export class WebSocketServer extends EventEmitter {
               sock.conn.remoteAddr.hostname;
           }
         }
-        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock);
-        ws.id = this.uuidv4()
+        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, this.uuidv4());
         this.clients.add(ws);
         this.emit("connection", ws, req);
       } catch (err) {
@@ -87,9 +86,10 @@ export class WebSocketAcceptedClient extends EventEmitter
   state: WebSocketState = WebSocketState.CONNECTING;
   webSocket: DenoWebSocketType;
   id?: string;
-  constructor(sock: DenoWebSocketType) {
+  constructor(sock: DenoWebSocketType, id:string) {
     super();
     this.webSocket = sock;
+    this.id = id
     this.open();
   }
   
