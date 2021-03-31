@@ -51,7 +51,7 @@ export class WebSocketServer extends EventEmitter {
               sock.conn.remoteAddr.hostname;
           }
         }
-        console.log(req.headers)
+        console.log(req.headers, req.headers['sec-websocket-key'])
         const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, 'sdfcqsdcv');
         this.clients.add(ws);
         this.emit("connection", ws, req);
