@@ -1,5 +1,6 @@
 import { EventEmitter } from "./../deps.ts";
 import { serve, Server } from "./../deps.ts";
+import { extractRouteParams}
 import {
   acceptWebSocket,
   isWebSocketCloseEvent,
@@ -28,12 +29,6 @@ export class WebSocketServer extends EventEmitter {
     super();
     this.connect();
   }
-  uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
   async connect() {
     this.server = serve(`:${this.port}`);
     for await (const req of this.server) {
@@ -57,7 +52,7 @@ export class WebSocketServer extends EventEmitter {
               sock.conn.remoteAddr.hostname;
           }
         }
-        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, this.uuidv4());
+        const ws: WebSocketAcceptedClient = new WebSocketAcceptedClient(sock, req.headers.get('sec-websocket-key'));
         this.clients.add(ws);
         this.emit("connection", ws, req);
       } catch (err) {
