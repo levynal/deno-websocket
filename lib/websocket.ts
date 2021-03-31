@@ -1,6 +1,5 @@
 import { EventEmitter } from "./../deps.ts";
 import { serve, Server } from "./../deps.ts";
-import { extractRouteParams}
 import {
   acceptWebSocket,
   isWebSocketCloseEvent,
