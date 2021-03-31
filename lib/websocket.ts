@@ -20,6 +20,7 @@ export enum WebSocketState {
 export class WebSocketServer extends EventEmitter {
   clients: Set<WebSocketAcceptedClient> = new Set<WebSocketAcceptedClient>();
   server?: Server = undefined;
+  rooms:Array<any> = []
   constructor(
     private port: Number = 8080,
     private realIpHeader: string | null = null,
@@ -78,6 +79,7 @@ export interface WebSocketClient extends EventEmitter {
   close(code: number, reason?: string): Promise<void>;
   closeForce(): void;
   isClosed: boolean | undefined;
+  id: string;
 }
 
 export class WebSocketAcceptedClient extends EventEmitter
