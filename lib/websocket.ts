@@ -78,7 +78,6 @@ export interface WebSocketClient extends EventEmitter {
   close(code: number, reason?: string): Promise<void>;
   closeForce(): void;
   isClosed: boolean | undefined;
-  id: string;
 }
 
 export class WebSocketAcceptedClient extends EventEmitter
@@ -179,7 +178,6 @@ export class WebSocketAcceptedClient extends EventEmitter
 export class StandardWebSocketClient extends EventEmitter
   implements WebSocketClient {
   webSocket?: WebSocket;
-  id: string;
   constructor(private endpoint?: string) {
     super();
     if (this.endpoint !== undefined) {
